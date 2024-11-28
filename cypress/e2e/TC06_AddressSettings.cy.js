@@ -1,5 +1,6 @@
 import Settings from "../AmazonPageObject/AddressSettings";
 import HomePage from "../AmazonPageObject/HomePage";
+
 describe("Amazon Account Settings Validation", () => {
   before(() => {
     cy.launchUrl();

@@ -8,7 +8,7 @@ describe("Amazon Home Page Validation", () => {
     cy.fixture("productDetails").then((data) => {
       userData = data;
     });
-    const folderToDelete = "cypress/snapshots/actual"; // Adjust the path as needed
+    const folderToDelete = "cypress/snapshots/actual";
     cy.task("deleteFolder", folderToDelete);
   });
   it("Verify Home Page Functionality", () => {

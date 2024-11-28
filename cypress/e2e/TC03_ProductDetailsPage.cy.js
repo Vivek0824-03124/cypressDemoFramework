@@ -11,7 +11,6 @@ describe("Amazon Product details Validation", () => {
   });
 
   beforeEach(() => {
-    //Handling Cookies
     cy.session("amazon-session", () => {
       cy.launchUrl();
       cy.loginAmazon();
