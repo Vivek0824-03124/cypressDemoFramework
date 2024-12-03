@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "open": "npx cypress open",
+    "cypress-dashboard-run": "npx cypress run --record --key aabf04cf-ac47-45f8-a274-783eaef400b2",
+    "cypress-dashboard-run-headedMode": "npx cypress run --browser chrome --headed --record --key aabf04cf-ac47-45f8-a274-783eaef400b2"
   },
   "author": "Vivek",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "cypress": "^13.16.0",
-    "cypress-image-diff": "^2.0.0",
-    "cypress-image-diff-js": "^2.2.1",
     "cypress-real-events": "^1.13.0",
     "cypress-visual-regression": "^5.2.2"
   },

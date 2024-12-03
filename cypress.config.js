@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports = defineConfig({
+  projectId: "5q61va",
   e2e: {
     setupNodeEvents(on, config) {
       // task to delete the exiting folder

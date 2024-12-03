@@ -101,7 +101,7 @@ class ShoppingCart {
     cy.get(selectors.text.subtotal).should("include.text", "Subtotal (1 item)");
   }
   verifyUserIsAbleToRemoveProductFromCart(productName) {
-    cy.get(selectors.button.delete).click();
+    cy.get(selectors.button.delete).eq(0).click();
     cy.get(selectors.text.emptyCart).should(
       "include.text",
       "Your Amazon Cart is empty."
