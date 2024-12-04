@@ -1,0 +1,40 @@
+name: Cypress Tests
+
+on:
+  push:
+    branches:
+      - master 
+  schedule:
+    - cron: '*/10 * * * *' 
+  workflow_dispatch: 
+    inputs:
+      browserName:
+        description: 'Browser to use for Cypress tests'
+        required: false
+        default: 'chrome'
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Start Application
+        run: npm start &
+      
+      - name: Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          record: true
+          browser: ${{ github.event.inputs.browserName || 'chrome' }} 
+
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
