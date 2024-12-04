@@ -27,7 +27,7 @@ const selectors = {
     productTitle: "#title",
     priceSymbol: ".a-price-symbol",
     offerPrice: ".a-price span",
-    reviewBody: "[id*=customer_review] > .a-spacing-small.review-data",
+    reviewBody: "[id*=customer_review]",
     addedToCart: "#attachDisplayAddBaseAlert h4",
     oneItemAdded: 'div>[class*="header-main"]',
   },
