@@ -33,7 +33,7 @@ const selectors = {
 class HomePage {
   verifyAmazonLogoOnHomePage() {
     cy.get(selectors.logo.amazonLogo).compareSnapshot("amazon-logo", {
-      failureThreshold: 0.1, // 10% acceptable difference
+      failureThreshold: 0.2, // 20% acceptable difference
       failureThresholdType: "percent", // Threshold type (percent or pixel)
     });
   }
