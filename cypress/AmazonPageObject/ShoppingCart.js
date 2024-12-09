@@ -59,7 +59,7 @@ class ShoppingCart {
     cy.get(selectors.button.decreaseByOne).click();
   }
   verifyShareButton() {
-    cy.viewport(1920, 1080);
+    // cy.viewport(1920, 1080);
 
     cy.get(selectors.link.share).scrollIntoView().click({ force: true });
     cy.get(selectors.text.shareWithFriends).should(

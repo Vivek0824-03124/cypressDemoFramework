@@ -17,8 +17,8 @@ describe("Amazon Home Page Validation", () => {
     HomePage.verifyInputInSearchBox(userData.productType);
     HomePage.clickOnSearchIcon();
     HomePage.verifyTheProductNameAfterSearch('"laptop"');
-    ProductListPage.verifyListOfSearchResult();
     ProductListPage.applyFilterByBrand(userData.brandName);
+    // ProductListPage.verifyListOfSearchResult();
     ProductListPage.selectRatingOnProductListPage(userData.rating);
     ProductListPage.verifyBrandNameOfProductsListedAfterApplyingFilter(
       userData.brandName

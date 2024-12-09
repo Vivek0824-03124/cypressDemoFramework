@@ -26,4 +26,7 @@ describe("Amazon Login", () => {
     LoginToAmazon.clickOnSignIn();
     LoginToAmazon.verifyUserFirstNameOnHomePage(userData.userFirstName);
   });
+  after(() => {
+    cy.logoutAmazon();
+  });
 });

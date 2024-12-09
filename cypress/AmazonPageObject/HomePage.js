@@ -32,6 +32,7 @@ const selectors = {
 
 class HomePage {
   verifyAmazonLogoOnHomePage() {
+    cy.wait(2000); // added wait for page to load compeletly
     cy.get(selectors.logo.amazonLogo).compareSnapshot("amazon-logo", {
       failureThreshold: 0.2, // 20% acceptable difference
       failureThresholdType: "percent", // Threshold type (percent or pixel)
@@ -41,7 +42,7 @@ class HomePage {
     cy.get(selectors.link.navbar).should("be.visible");
 
     const expectedTexts = [
-      "Fresh",
+      "Gift Cards",
       "MX Player",
       "Best Sellers",
       "Electronics",

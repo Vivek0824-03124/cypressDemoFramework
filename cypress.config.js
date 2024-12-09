@@ -22,7 +22,7 @@ module.exports = defineConfig({
     },
     screenshotsFolder: "./cypress/snapshots/actual",
     env: {
-      visualRegressionType: "regression", // Type of regression test
+      visualRegressionType: "regression", // Type of regression test (regression or base)
       visualRegressionGenerateDiff: "fail", // Only generate diff image on failure
     },
     watchForFileChanges: false,
