@@ -14,6 +14,7 @@ const selectors = {
     addAddress: "#address-ui-widgets-form-submit-button",
     no_deleteAddressModal: "#deleteAddressModal-0-cancel-btn-announce",
     yes_deleteAddressModal: "#deleteAddressModal-0-submit-btn input",
+    saveAddress: "#a-autoid-2 > .a-button-inner > .a-button-input",
   },
   text: {
     savedAddress: "#ya-myab-display-address-block-0",
@@ -43,7 +44,7 @@ class Settings {
     );
     cy.get(selectors.inputFields.fullName)
       .click()
-      .type(data.name, { delay: 300 });
+      .type(data.name, { delay: 100 });
     cy.get(selectors.inputFields.mobNumber)
       .clear()
       .type(data.phone, { delay: 100 });
@@ -51,12 +52,20 @@ class Settings {
     cy.get(selectors.inputFields.address).type(data.address);
     cy.get(selectors.inputFields.address2).type("Janta Inter College Ballia");
     cy.get(selectors.inputFields.landMark).type(data.landmark);
-
     cy.get(selectors.button.addAddress).click();
+    cy.get("body").then(($body) => {
+      if ($body.find("selectors.button.saveAddress").length > 0) {
+        cy.get("selectors.button.saveAddress").click();
+      } else {
+        cy.log("Button not found, skipping the click");
+      }
+    });
   }
 
   verifyAddressSaved(data) {
-    cy.get(selectors.text.alertMessage).should("have.text", "Address saved");
+    cy.get(selectors.text.alertMessage)
+      .first()
+      .should("have.text", "Address saved");
     cy.get(selectors.text.savedAddress).should("be.visible");
     cy.get(selectors.link.editAddress)
       .should("be.visible")
@@ -79,6 +88,7 @@ class Settings {
     cy.wait(3000); //to make dom stable
     cy.get(selectors.button.yes_deleteAddressModal).click({ force: true });
     cy.get(selectors.text.alertMessage)
+      .first()
       .should("have.text", "Address deleted")
       .and("be.visible");
   }

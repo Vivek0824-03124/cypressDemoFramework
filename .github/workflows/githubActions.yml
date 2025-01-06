@@ -5,17 +5,26 @@ on:
     branches:
       - master
   schedule:
-    - cron: "0 15 * * *"
+    - cron: "0 0 1 * *"
   workflow_dispatch:
     inputs:
       browserName:
         description: "Browser to use for Cypress tests"
         required: false
         default: "chrome"
+      specName:
+        description: "Dynamically choose which test file to run"
+        required: false
+        default: "" # Default: Run all tests
 
 jobs:
   cypress-run:
     runs-on: windows-latest
+
+    # strategy:
+    #   fail-fast: false
+    #   matrix:
+    #     containers: [1, 2]
 
     steps:
       - name: Checkout Repository
@@ -36,7 +45,10 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           record: true
+          headless: false
+          # parallel: true
           browser: ${{ github.event.inputs.browserName || 'chrome' }}
+          spec: ${{ github.event.inputs.specName }} # Pass the test file path dynamically
 
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

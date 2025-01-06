@@ -13,6 +13,7 @@ const selectors = {
   },
   button: {
     addToCart: '#add-to-cart-button[type="submit"]',
+    addToCartBtn: "#add-to-cart-button",
     buyNow: "#buy-now-button",
     search: '[type="submit"]+[id="a-autoid-2-announce"]',
     viewCart: "#attach-view-cart-button-form",
@@ -29,7 +30,7 @@ const selectors = {
     offerPrice: ".a-price span",
     reviewBody: "[id*=customer_review]",
     addedToCart: "#attachDisplayAddBaseAlert h4",
-    oneItemAdded: 'div>[class*="header-main"]',
+    oneItemAdded: "#huc-atwl-header-section",
   },
 };
 
@@ -49,7 +50,7 @@ class ProductDetails {
   }
 
   verifyBuyNowAndAddToCartButtonIsVisible() {
-    cy.get(selectors.button.addToCart)
+    cy.get(`${selectors.button.addToCart}, ${selectors.button.addToCartBtn}`)
       .should("be.visible")
       .and("not.be.disabled");
     cy.get(selectors.button.buyNow).should("be.visible");
@@ -88,10 +89,19 @@ class ProductDetails {
   }
 
   clickOnAddToCartButtonAndVerifyProductAddedMessage() {
-    cy.get(selectors.button.addToCart).click();
-    cy.get(selectors.text.addedToCart).should("have.text", "Added to cart");
+    cy.get(
+      `${selectors.button.addToCart}, ${selectors.button.addToCartBtn}`
+    ).then(($elements) => {
+      if ($elements.length > 1) {
+        cy.wrap($elements.eq(1)).click();
+      } else {
+        cy.wrap($elements.eq(0)).click();
+      }
+    });
     cy.get(selectors.button.viewCart).should("be.visible");
+    cy.wait(5000);
     cy.get(selectors.button.proceedToCheckout).should("be.visible");
+    cy.get(selectors.text.addedToCart).should("have.text", "Added to cart");
   }
 
   clickOnCartButtonAfterAddingProductIntoCart() {
@@ -117,6 +127,7 @@ class ProductDetails {
   clickOnAddToWishlistButtonAndVerifyMessage(nameOfWishList) {
     cy.get(selectors.button.addToWishlist).click();
     cy.get(selectors.text.oneItemAdded)
+      .first()
       .contains("One item added to")
       .should("be.visible");
     cy.get(selectors.link.wishListName).should("have.text", nameOfWishList);

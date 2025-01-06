@@ -3,7 +3,6 @@ import HomePage from "../AmazonPageObject/HomePage";
 
 describe("Amazon Account Settings Validation", () => {
   before(() => {
-    cy.launchUrl();
     cy.loginAmazon();
   });
   it("Verify account setting functionality", () => {

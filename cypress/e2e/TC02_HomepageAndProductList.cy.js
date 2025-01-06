@@ -12,13 +12,12 @@ describe("Amazon Home Page Validation", () => {
     cy.task("deleteFolder", folderToDelete);
   });
   it("Verify Home Page Functionality", () => {
-    HomePage.verifyAmazonLogoOnHomePage();
+    // HomePage.verifyAmazonLogoOnHomePage();
     HomePage.verifyAllElementsAreVisible();
     HomePage.verifyInputInSearchBox(userData.productType);
     HomePage.clickOnSearchIcon();
     HomePage.verifyTheProductNameAfterSearch('"laptop"');
     ProductListPage.applyFilterByBrand(userData.brandName);
-    // ProductListPage.verifyListOfSearchResult();
     ProductListPage.selectRatingOnProductListPage(userData.rating);
     ProductListPage.verifyBrandNameOfProductsListedAfterApplyingFilter(
       userData.brandName

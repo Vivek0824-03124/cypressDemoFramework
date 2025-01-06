@@ -6,14 +6,13 @@ before(() => {
     userData = data;
   });
 });
-beforeEach(() => {
-  cy.launchUrl();
-  LoginToAmazon.clickOnSignInButton();
-  LoginToAmazon.setUserName(userData.userName);
-  LoginToAmazon.clickOnContinueButton();
-});
 describe("Amazon Login", () => {
   it("should not able to log with invalid credentials", () => {
+    // cy.LaunchAmazonUrlThroughGoogle();
+    cy.launchUrl();
+    LoginToAmazon.clickOnSignInButton();
+    LoginToAmazon.setUserName(userData.userName);
+    LoginToAmazon.clickOnContinueButton();
     LoginToAmazon.setUserPassword(userData.password1);
     LoginToAmazon.clickOnSignIn();
     LoginToAmazon.verifyErrorMessgageForWrongCred(
@@ -22,11 +21,12 @@ describe("Amazon Login", () => {
   });
 
   it("should log in successfully with valid credentials", () => {
+    cy.launchUrl();
+    LoginToAmazon.clickOnSignInButton();
+    LoginToAmazon.setUserName(userData.userName);
+    LoginToAmazon.clickOnContinueButton();
     LoginToAmazon.setUserPassword(userData.password);
     LoginToAmazon.clickOnSignIn();
     LoginToAmazon.verifyUserFirstNameOnHomePage(userData.userFirstName);
-  });
-  after(() => {
-    cy.logoutAmazon();
   });
 });

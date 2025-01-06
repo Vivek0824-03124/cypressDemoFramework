@@ -17,17 +17,28 @@ Cypress.Commands.add("launchUrl", () => {
   cy.visit("https://amazon.in");
 });
 
+Cypress.Commands.add("LaunchAmazonUrlThroughGoogle", () => {
+  cy.visit("https://www.google.co.in/");
+  cy.get(".gLFyf").type("Amazon{Enter}");
+  cy.get('[href="https://www.amazon.in/"] h3').click();
+  cy.origin("https://www.amazon.in", () => {
+    cy.get("#nav-logo-sprites").should("be.visible");
+  });
+});
+
 Cypress.Commands.add("loginAmazon", () => {
   let userData;
   cy.fixture("cred").then((data) => {
-    userData = data;
-
-    LoginToAmazon.clickOnSignInButton();
-    LoginToAmazon.setUserName(userData.userName);
-    LoginToAmazon.clickOnContinueButton();
-    LoginToAmazon.setUserPassword(userData.password);
-    LoginToAmazon.clickOnSignIn();
-    LoginToAmazon.verifyUserFirstNameOnHomePage(userData.userFirstName);
+    cy.session("userSession", () => {
+      cy.visit("https://amazon.in");
+      userData = data;
+      LoginToAmazon.clickOnSignInButton();
+      LoginToAmazon.setUserName(userData.userName);
+      LoginToAmazon.clickOnContinueButton();
+      LoginToAmazon.setUserPassword(userData.password);
+      LoginToAmazon.clickOnSignIn();
+      LoginToAmazon.verifyUserFirstNameOnHomePage(userData.userFirstName);
+    });
   });
 });
 

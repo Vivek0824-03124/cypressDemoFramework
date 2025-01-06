@@ -1,3 +1,4 @@
+const { fa } = require("@faker-js/faker");
 const { defineConfig } = require("cypress");
 const { configureVisualRegression } = require("cypress-visual-regression");
 
@@ -7,6 +8,7 @@ const path = require("path");
 module.exports = defineConfig({
   projectId: "5q61va",
   e2e: {
+    cacheAcrossSpecs: true,
     setupNodeEvents(on, config) {
       // task to delete the exiting folder
       on("task", {
@@ -25,7 +27,9 @@ module.exports = defineConfig({
       visualRegressionType: "regression", // Type of regression test (regression or base)
       visualRegressionGenerateDiff: "fail", // Only generate diff image on failure
     },
+
     watchForFileChanges: false,
     defaultCommandTimeout: 5000,
+    chromeWebSecurity: false,
   },
 });

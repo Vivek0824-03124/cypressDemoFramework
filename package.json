@@ -6,7 +6,9 @@
     "open": "npx cypress open",
     "dashboard-run": "npx cypress run --record --key aabf04cf-ac47-45f8-a274-783eaef400b2",
     "dashboard-run-headedMode": "npx cypress run --browser chrome --headed --record --key aabf04cf-ac47-45f8-a274-783eaef400b2",
-    "dashboard-run-edge-headless": "npx cypress run --browser edge --record --key aabf04cf-ac47-45f8-a274-783eaef400b2"
+    "dashboard-run-edge-headless": "npx cypress run --browser edge --record --key aabf04cf-ac47-45f8-a274-783eaef400b2",
+    "dashboard-run-headedMode-noRecord": "npx cypress run --browser chrome --headed --key aabf04cf-ac47-45f8-a274-783eaef400b2",
+    "dashboard-run-spec": "npx cypress run --browser chrome --headed --spec TC01_Login.cy.js"
   },
   "author": "Vivek",
   "license": "ISC",

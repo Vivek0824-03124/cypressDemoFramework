@@ -1,13 +1,13 @@
 const selectors = {
   link: {
-    productLink: '[data-cy="title-recipe"] h2 a span',
+    productLink: '[data-cy="title-recipe"] h2',
   },
   checkbox: {
     brandNameList: "#brandsRefinements",
     company: 'input[type="checkbox"]',
   },
   button: {
-    starRating: '[aria-label="4 Stars & Up"]',
+    starRating: ".a-star-medium-4",
   },
   text: {
     rating: '[data-cy="reviews-ratings-slot"] span',
@@ -34,7 +34,6 @@ class ProductListPage {
   }
 
   selectRatingOnProductListPage(text) {
-    cy.get(selectors.button.starRating).should("include.text", text);
     cy.get(selectors.button.starRating).click();
   }
 

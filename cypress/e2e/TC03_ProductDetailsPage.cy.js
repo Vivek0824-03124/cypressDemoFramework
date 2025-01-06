@@ -5,6 +5,7 @@ describe("Amazon Product details Validation", () => {
   let userData;
 
   before(() => {
+    cy.loginAmazon();
     cy.fixture("productDetails").then((data) => {
       userData = data;
     });
