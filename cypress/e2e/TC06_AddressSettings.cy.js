@@ -7,6 +7,7 @@ describe("Amazon Account Settings Validation", () => {
   });
   it("Verify account setting functionality", () => {
     cy.generateRandomData().then((data) => {
+      cy.launchUrl();
       HomePage.navigateToYourAccountPage();
       Settings.clickOnYourAddresses();
       Settings.addNewAddressInAmazonAccount(data);

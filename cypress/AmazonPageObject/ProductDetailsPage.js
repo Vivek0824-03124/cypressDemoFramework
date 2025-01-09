@@ -18,7 +18,7 @@ const selectors = {
     search: '[type="submit"]+[id="a-autoid-2-announce"]',
     viewCart: "#attach-view-cart-button-form",
     proceedToCheckout: "#attach-sidesheet-checkout-button",
-    addToWishlist: "#add-to-wishlist-button-submit",
+    addToWishlist: "#wishListMainButton",
     seeAllBuyingOptions: ".a-button-text",
   },
   image: {
@@ -89,6 +89,7 @@ class ProductDetails {
   }
 
   clickOnAddToCartButtonAndVerifyProductAddedMessage() {
+    cy.wait(5000);
     cy.get(
       `${selectors.button.addToCart}, ${selectors.button.addToCartBtn}`
     ).then(($elements) => {
@@ -99,7 +100,7 @@ class ProductDetails {
       }
     });
     cy.get(selectors.button.viewCart).should("be.visible");
-    cy.wait(5000);
+
     cy.get(selectors.button.proceedToCheckout).should("be.visible");
     cy.get(selectors.text.addedToCart).should("have.text", "Added to cart");
   }
@@ -125,7 +126,9 @@ class ProductDetails {
   }
 
   clickOnAddToWishlistButtonAndVerifyMessage(nameOfWishList) {
-    cy.get(selectors.button.addToWishlist).click();
+    cy.wait(3000);
+    cy.get(selectors.button.addToWishlist).click({ force: true });
+    // cy.get(selectors.button.addToWishlist).click({ force: true });
     cy.get(selectors.text.oneItemAdded)
       .first()
       .contains("One item added to")

@@ -11,6 +11,7 @@ describe("Amazon WishList Validation", () => {
     });
   });
   it("Create wishlist", () => {
+    cy.launchUrl();
     HomePage.clickOnCreateWishList();
     WishList.userCreateNewWishList(userData.wishListName);
     WishList.userVerifyTheWishListIsCreatedSuccessfully(userData.wishListName);

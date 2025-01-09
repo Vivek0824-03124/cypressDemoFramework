@@ -4,8 +4,8 @@ import ProductDetails from "../AmazonPageObject/ProductDetailsPage.js";
 describe("Amazon Shopping Cart Validation", () => {
   let userData;
   before(() => {
-    cy.launchUrl();
     cy.loginAmazon();
+    cy.launchUrl();
     cy.fixture("productDetails").then((data) => {
       userData = data;
       cy.SearchProduct(

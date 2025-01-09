@@ -12,12 +12,8 @@ describe("Amazon Product details Validation", () => {
   });
 
   beforeEach(() => {
-    cy.session("amazon-session", () => {
-      cy.launchUrl();
-      cy.loginAmazon();
-    });
-
     cy.launchUrl();
+
     cy.SearchProduct(userData.productType, userData.brandName, userData.rating);
   });
   it("User verify Product details page", () => {
