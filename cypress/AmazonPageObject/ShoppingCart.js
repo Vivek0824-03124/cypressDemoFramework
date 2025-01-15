@@ -1,7 +1,7 @@
 const selectors = {
   link: {
     proceedToBuy: '[value="Proceed to checkout"]',
-    productLinkInSavedCart: "#sc-saved-cart-items a img",
+    productLinkInSavedCart: ".a-text-normal > .a-truncate > .a-truncate-full",
     moveToCart: '[value="Move to cart"]',
     share: '[title="Share"]',
     emailShare: '[title="Share via e-mail"]',
@@ -10,13 +10,13 @@ const selectors = {
     xShare: '[title="X"]',
     copyLinkUrl: '[class="link-section"]',
     closeButton: 'h4~[aria-label="Close"]',
+    decreaseByOne: '[aria-label="Decrease quantity by one"]',
   },
   button: {
     delete: '[value="Delete"]',
     saveForlater: '[value="Save for later"]',
     seeMoreLikeThis: '[value="See more like this"]',
     increaseByOne: '[aria-label="Increase quantity by one"]',
-    decreaseByOne: '[aria-label="Decrease quantity by one"]',
   },
   text: {
     productName: 'h4 [class*="product-title"]',
@@ -27,7 +27,8 @@ const selectors = {
     deleteSuccessMessage: '[data-feature-id="delete-success-message"]',
     saveForLater: '[data-action="save-for-later"]',
     shareWithFriends: "#a-popover-content-1 h3",
-    emptyCart: "#sc-active-cart h2",
+    deleteItemInCartMessage: ".sc-list-item-removed-msg span",
+    saveForLaterMessage: ".sc-list-item-removed-msg span",
   },
   image: {
     productImage: '[class*="product-link"] img',
@@ -37,7 +38,9 @@ const selectors = {
 class ShoppingCart {
   verifyProductDetailsOnShoppingCartPage(productTitle, productMRP) {
     cy.get(selectors.text.productName).should("include.text", productTitle);
-    cy.get(selectors.text.productPrice).should("include.text", productMRP);
+    cy.get(
+      '.aok-align-center > .a-price > [aria-hidden="true"] > .a-price-whole'
+    ).should("include.text", productMRP);
     cy.get(selectors.image.productImage).should("be.visible");
   }
 
@@ -56,11 +59,9 @@ class ShoppingCart {
       .invoke("attr", "data-old-value")
       .should("equal", "2");
     cy.get(selectors.text.subtotalBuyBox).should("include.text", "2 items");
-    cy.get(selectors.button.decreaseByOne).click();
+    cy.get(selectors.link.decreaseByOne).click();
   }
   verifyShareButton() {
-    // cy.viewport(1920, 1080);
-
     cy.get(selectors.link.share).scrollIntoView().click({ force: true });
     cy.get(selectors.text.shareWithFriends).should(
       "have.text",
@@ -80,19 +81,19 @@ class ShoppingCart {
   verifySaveForLaterButtonFunctionality(productName) {
     cy.wait(2000); //click opertion got performed but not reflecting on UI due to this 2sec wait added
     cy.get(selectors.button.saveForlater).eq(0).click();
-    cy.get(selectors.text.emptyCart).should(
+    cy.get(selectors.text.saveForLaterMessage).should(
       "include.text",
-      "Your Amazon Cart is empty."
+      " has been moved to Save For Later. "
     );
 
     cy.get(selectors.text.saveForLater)
       .should("include.text", productName)
       .and("include.text", " has been moved to Save For Later. ");
-    cy.get(selectors.link.productLinkInSavedCart)
-      .invoke("attr", "alt")
-      .then((altText) => {
-        expect(altText).to.include(productName);
-      });
+    cy.get("#sc-saved-cart-caption").first().click();
+    cy.get(selectors.link.productLinkInSavedCart).should(
+      "include.text",
+      productName
+    );
     cy.get(selectors.link.moveToCart).should("be.visible");
   }
 
@@ -102,9 +103,9 @@ class ShoppingCart {
   }
   verifyUserIsAbleToRemoveProductFromCart(productName) {
     cy.get(selectors.button.delete).eq(0).click();
-    cy.get(selectors.text.emptyCart).should(
+    cy.get(selectors.text.deleteItemInCartMessage).should(
       "include.text",
-      "Your Amazon Cart is empty."
+      " was removed from Shopping Cart. "
     );
     cy.get(selectors.text.deleteSuccessMessage)
       .should("include.text", productName)

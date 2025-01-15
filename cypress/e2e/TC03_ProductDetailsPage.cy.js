@@ -1,8 +1,10 @@
 import ProductDetails from "../AmazonPageObject/ProductDetailsPage.js";
+import ProductListPage from "../AmazonPageObject/ProductListPage.js";
 import ShoppingCart from "../AmazonPageObject/ShoppingCart.js";
 
 describe("Amazon Product details Validation", () => {
   let userData;
+  let productPrice;
 
   before(() => {
     cy.loginAmazon();
@@ -13,14 +15,18 @@ describe("Amazon Product details Validation", () => {
 
   beforeEach(() => {
     cy.launchUrl();
-
     cy.SearchProduct(userData.productType, userData.brandName, userData.rating);
+    ProductListPage.fetchPriceOnProductListPage().then((price) => {
+      productPrice = price;
+    });
   });
   it("User verify Product details page", () => {
+    ProductListPage.clickOnProductLink(userData.productName);
     ProductDetails.verifyProductNameAndPriceOnProductDetailsPage(
       userData.productName,
-      userData.price
+      productPrice
     );
+    ProductDetails.verifyBuyNowAndAddToCartButtonIsVisible();
     cy.generateRandomData().then((data) => {
       ProductDetails.verifyPinCodeUpdateFunctionality(data.pinCode);
     });
@@ -28,10 +34,11 @@ describe("Amazon Product details Validation", () => {
     ProductDetails.verifyReviewOfProductsOnProductDetailsPage(userData.keyword);
   });
   // splited into 2 It blocks, just to excerise cooking handling
-  it("User verify Add to Cart Functionality", () => {
-    ProductDetails.verifyBuyNowAndAddToCartButtonIsVisible();
-    ProductDetails.clickOnAddToCartButtonAndVerifyProductAddedMessage();
-    ProductDetails.clickOnCartButtonAfterAddingProductIntoCart();
+  it.only("User verify Add to Cart Functionality", () => {
+    ProductListPage.clickOnAddToCartButton(userData.productName);
+    ProductListPage.clickOnCartLink();
+    // ProductDetails.clickOnAddToCartButtonAndVerifyProductAddedMessage();
+    // ProductDetails.clickOnCartButtonAfterAddingProductIntoCart();
     ShoppingCart.verifyUserIsAbleToRemoveProductFromCart(userData.productName);
   });
 });

@@ -45,7 +45,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           record: true
-          headless: false
+          headed: true
           # parallel: true
           browser: ${{ github.event.inputs.browserName || 'chrome' }}
           spec: ${{ github.event.inputs.specName }} # Pass the test file path dynamically

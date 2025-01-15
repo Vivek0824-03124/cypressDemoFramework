@@ -54,7 +54,7 @@ Cypress.Commands.add("SearchProduct", (productName, brandName, rating) => {
     HomePage.clickOnSearchIcon();
     ProductListPage.applyFilterByBrand(brandName);
     ProductListPage.selectRatingOnProductListPage(rating);
-    ProductListPage.clickOnProductLink(userData.productName);
+    // ProductListPage.clickOnProductLink(userData.productName);
   });
 });
 

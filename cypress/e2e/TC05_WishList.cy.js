@@ -1,6 +1,7 @@
 import WishList from "../AmazonPageObject/CreateWishlistAndModify.js";
 import HomePage from "../AmazonPageObject/HomePage.js";
 import ProductDetails from "../AmazonPageObject/ProductDetailsPage.js";
+import ProductListPage from "../AmazonPageObject/ProductListPage.js";
 
 describe("Amazon WishList Validation", () => {
   let userData;
@@ -16,6 +17,7 @@ describe("Amazon WishList Validation", () => {
     WishList.userCreateNewWishList(userData.wishListName);
     WishList.userVerifyTheWishListIsCreatedSuccessfully(userData.wishListName);
     cy.SearchProduct(userData.productType, userData.brandName, userData.rating);
+    ProductListPage.clickOnProductLink(userData.productName);
     ProductDetails.clickOnAddToWishlistButtonAndVerifyMessage(
       userData.wishListName
     );

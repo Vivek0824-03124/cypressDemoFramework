@@ -75,7 +75,7 @@ class ProductDetails {
         .clear()
         .type(deliveryPincode, { delay: 100 })
         .type("{enter}");
-      cy.wait(2000); // wait for page to reload
+      cy.wait(4000); // wait for page to reload
       cy.get("@location").then((newText) => {
         const updatedPincode = newText.trim();
         cy.log(`Updated Pincode: ${updatedPincode}`);
@@ -89,7 +89,6 @@ class ProductDetails {
   }
 
   clickOnAddToCartButtonAndVerifyProductAddedMessage() {
-    cy.wait(5000);
     cy.get(
       `${selectors.button.addToCart}, ${selectors.button.addToCartBtn}`
     ).then(($elements) => {
@@ -106,6 +105,7 @@ class ProductDetails {
   }
 
   clickOnCartButtonAfterAddingProductIntoCart() {
+    cy.reload();
     cy.get(selectors.button.viewCart).click();
   }
 
@@ -126,9 +126,7 @@ class ProductDetails {
   }
 
   clickOnAddToWishlistButtonAndVerifyMessage(nameOfWishList) {
-    cy.wait(3000);
     cy.get(selectors.button.addToWishlist).click({ force: true });
-    // cy.get(selectors.button.addToWishlist).click({ force: true });
     cy.get(selectors.text.oneItemAdded)
       .first()
       .contains("One item added to")

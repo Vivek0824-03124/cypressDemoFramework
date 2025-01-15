@@ -1,8 +1,11 @@
 import ShoppingCart from "../AmazonPageObject/ShoppingCart.js";
 import ProductDetails from "../AmazonPageObject/ProductDetailsPage.js";
+import ProductListPage from "../AmazonPageObject/ProductListPage.js";
 
 describe("Amazon Shopping Cart Validation", () => {
   let userData;
+  let productPrice;
+
   before(() => {
     cy.loginAmazon();
     cy.launchUrl();
@@ -13,14 +16,19 @@ describe("Amazon Shopping Cart Validation", () => {
         userData.brandName,
         userData.rating
       );
-      cy.addProductIntoCart();
+      ProductListPage.fetchPriceOnProductListPage().then((price) => {
+        productPrice = price;
+      });
+      // cy.addProductIntoCart();
     });
   });
   it("User verify Shopping Cart Functionality", () => {
-    ProductDetails.clickOnCartButtonAfterAddingProductIntoCart();
+    ProductListPage.clickOnAddToCartButton(userData.productName);
+    ProductListPage.clickOnCartLink();
+    // ProductDetails.clickOnCartButtonAfterAddingProductIntoCart();
     ShoppingCart.verifyProductDetailsOnShoppingCartPage(
       userData.productName,
-      userData.price
+      productPrice
     );
     ShoppingCart.verifyTextAndButtons();
     ShoppingCart.verifyQuantityModification();

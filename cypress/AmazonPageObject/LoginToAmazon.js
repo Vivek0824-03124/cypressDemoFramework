@@ -1,6 +1,6 @@
 const selectors = {
   inputFields: {
-    userName: "#ap_email",
+    userName: '[type="email"]',
     password: "#ap_password",
   },
   button: {
