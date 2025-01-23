@@ -48,7 +48,7 @@ jobs:
           headed: true
           # parallel: true
           browser: ${{ github.event.inputs.browserName || 'chrome' }}
-          spec: ${{ github.event.inputs.specName || 'cypress/e2e/**/*' }} # Pass the test file path dynamically
+          spec: ${{ `cypress/e2e/${github.event.inputs.specName}` || 'cypress/e2e/**/*' }} # Pass the test file path dynamically
 
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
