@@ -18,7 +18,8 @@ const selectors = {
     search: '[type="submit"]+[id="a-autoid-2-announce"]',
     viewCart: "#attach-view-cart-button-form",
     proceedToCheckout: "#attach-sidesheet-checkout-button",
-    addToWishlist: "#wishListMainButton",
+    addToWishlist: '[id*="atwl-list-name"]',
+    addToWishlistArrow: "#add-to-wishlist-button",
     seeAllBuyingOptions: ".a-button-text",
   },
   image: {
@@ -126,7 +127,8 @@ class ProductDetails {
   }
 
   clickOnAddToWishlistButtonAndVerifyMessage(nameOfWishList) {
-    cy.get(selectors.button.addToWishlist).click({ force: true });
+    cy.get(selectors.button.addToWishlistArrow).click();
+    cy.get(selectors.button.addToWishlist).click();
     cy.get(selectors.text.oneItemAdded)
       .first()
       .contains("One item added to")

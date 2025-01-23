@@ -8,7 +8,7 @@ const selectors = {
     addToCart: '[data-action="add-to-cart"]',
     delete: '[name="submit.deleteItem"]',
     confirmDeletion: "#list-delete-confirm input",
-    deleteList: '[data-action="a-modal"] input',
+    deleteList: '[data-action="a-modal"] input~span',
   },
   text: {
     wishListName: '[id^="wl-list-entry-title"]',
@@ -18,7 +18,7 @@ const selectors = {
   link: {
     undo: "[id*='itemUndoLink']",
     productTitle: '[id*="itemName_"]',
-    moreOptions: '[alt="More Options"]',
+    moreOptions: "#overflow-menu-popover-trigger",
     manageList: "#editYourList",
   },
 };
@@ -71,9 +71,12 @@ class WishList {
   }
 
   userDeleteWishList() {
-    cy.get(selectors.link.moreOptions).click();
+    cy.get(selectors.link.moreOptions).click({ force: true });
     cy.get(selectors.link.manageList).click();
-    cy.get(selectors.button.deleteList).scrollIntoView().click();
+    cy.get(selectors.button.deleteList)
+      .contains("Delete list")
+      .scrollIntoView()
+      .click({ force: true });
     cy.get(selectors.button.confirmDeletion).should("be.visible");
     cy.get(selectors.button.confirmDeletion).wait(2000).click({ force: true });
     cy.get(selectors.button.createList).should("be.visible");

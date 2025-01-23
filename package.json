@@ -14,7 +14,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "cypress": "^13.16.1",
+    "cypress": "^14.0.0",
     "cypress-real-events": "^1.13.0",
     "cypress-visual-regression": "^5.2.2"
   },

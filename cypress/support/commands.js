@@ -14,6 +14,8 @@ addCompareSnapshotCommand({
 });
 
 Cypress.Commands.add("launchUrl", () => {
+  // cy.visit("https://www.amazon.in/");
+  // cy.reload();
   cy.visit("https://amazon.in");
 });
 

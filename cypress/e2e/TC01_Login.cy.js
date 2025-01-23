@@ -2,6 +2,8 @@ import LoginToAmazon from "../AmazonPageObject/LoginToAmazon.js";
 let userData;
 
 before(() => {
+  cy.clearAllCookies();
+  cy.clearAllLocalStorage();
   cy.fixture("cred").then((data) => {
     userData = data;
   });
