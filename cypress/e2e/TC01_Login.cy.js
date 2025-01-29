@@ -23,12 +23,6 @@ describe("Amazon Login", () => {
   });
 
   it("should log in successfully with valid credentials", () => {
-    cy.launchUrl();
-    LoginToAmazon.clickOnSignInButton();
-    LoginToAmazon.setUserName(userData.userName);
-    LoginToAmazon.clickOnContinueButton();
-    LoginToAmazon.setUserPassword(userData.password);
-    LoginToAmazon.clickOnSignIn();
-    LoginToAmazon.verifyUserFirstNameOnHomePage(userData.userFirstName);
+    cy.loginAmazon();
   });
 });

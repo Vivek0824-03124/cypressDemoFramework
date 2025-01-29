@@ -14,9 +14,28 @@ addCompareSnapshotCommand({
 });
 
 Cypress.Commands.add("launchUrl", () => {
-  // cy.visit("https://www.amazon.in/");
-  // cy.reload();
-  cy.visit("https://amazon.in");
+  let attempts = 0;
+  const maxRetries = 5;
+
+  function launchAmazonUrl() {
+    attempts++;
+
+    cy.visit("https://amazon.in");
+
+    cy.get("body").then((body) => {
+      if (body.find("#nav-link-accountList").length > 0) {
+        cy.get("#nav-link-accountList").should("be.visible");
+      } else if (attempts < maxRetries) {
+        cy.log(`Attempt ${attempts} failed, retrying...`);
+        cy.reload();
+        launchAmazonUrl();
+      } else {
+        throw new Error("Launch failed after maximum retries.");
+      }
+    });
+  }
+
+  launchAmazonUrl();
 });
 
 Cypress.Commands.add("LaunchAmazonUrlThroughGoogle", () => {
@@ -28,11 +47,18 @@ Cypress.Commands.add("LaunchAmazonUrlThroughGoogle", () => {
   });
 });
 
+Cypress.on("uncaught:exception", (err) => {
+  if (err.message.includes("a.ue.log is not a function")) {
+    return false;
+  }
+  return true;
+});
+
 Cypress.Commands.add("loginAmazon", () => {
   let userData;
   cy.fixture("cred").then((data) => {
     cy.session("userSession", () => {
-      cy.visit("https://amazon.in");
+      cy.launchUrl();
       userData = data;
       LoginToAmazon.clickOnSignInButton();
       LoginToAmazon.setUserName(userData.userName);
@@ -56,7 +82,6 @@ Cypress.Commands.add("SearchProduct", (productName, brandName, rating) => {
     HomePage.clickOnSearchIcon();
     ProductListPage.applyFilterByBrand(brandName);
     ProductListPage.selectRatingOnProductListPage(rating);
-    // ProductListPage.clickOnProductLink(userData.productName);
   });
 });
 

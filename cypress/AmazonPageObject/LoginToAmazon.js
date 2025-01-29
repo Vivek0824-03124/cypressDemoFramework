@@ -4,7 +4,7 @@ const selectors = {
     password: "#ap_password",
   },
   button: {
-    signIn: ".nav-action-signin-button",
+    signIn: "#nav-link-accountList",
     btn_continue: "#continue",
     btn_signIn: "#signInSubmit",
   },
@@ -16,7 +16,7 @@ const selectors = {
 
 class LoginToAmazon {
   clickOnSignInButton() {
-    cy.get(selectors.button.signIn).contains("Sign in").click({ force: true });
+    cy.get(selectors.button.signIn).click({ force: true });
   }
 
   setUserName(username) {

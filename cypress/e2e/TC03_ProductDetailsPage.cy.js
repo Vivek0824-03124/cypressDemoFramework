@@ -37,8 +37,6 @@ describe("Amazon Product details Validation", () => {
   it.only("User verify Add to Cart Functionality", () => {
     ProductListPage.clickOnAddToCartButton(userData.productName);
     ProductListPage.clickOnCartLink();
-    // ProductDetails.clickOnAddToCartButtonAndVerifyProductAddedMessage();
-    // ProductDetails.clickOnCartButtonAfterAddingProductIntoCart();
     ShoppingCart.verifyUserIsAbleToRemoveProductFromCart(userData.productName);
   });
 });

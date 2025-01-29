@@ -74,7 +74,6 @@ class ProductListPage {
     return cy.get(selectors.text.price).invoke("text");
   }
   clickOnAddToCartButtonAndVerifyProductAddedMessage() {
-    // cy.go("back");
     cy.get(
       `${selectors.button.addToCart}, ${selectors.button.addToCartBtn}`
     ).then(($elements) => {
