@@ -9,7 +9,7 @@ const selectors = {
     facebookShare: '[title="Share on Facebook"]',
     xShare: '[title="X"]',
     copyLinkUrl: '[class="link-section"]',
-    closeButton: 'h4~[aria-label="Close"]',
+    closeButton: ".a-button-close",
     decreaseByOne: '[aria-label="Decrease quantity by one"]',
   },
   button: {

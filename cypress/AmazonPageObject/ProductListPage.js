@@ -67,6 +67,7 @@ class ProductListPage {
   }
 
   clickOnCartLink() {
+    cy.reload();
     cy.get(selectors.link.cart).click({ force: true });
   }
 
