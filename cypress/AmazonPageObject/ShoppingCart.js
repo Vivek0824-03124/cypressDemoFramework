@@ -55,6 +55,7 @@ class ShoppingCart {
   verifyQuantityModification() {
     cy.get(selectors.text.quantity).should("be.visible");
     cy.get(selectors.button.increaseByOne).click();
+    cy.wait(2000);
     cy.get(selectors.text.quantity)
       .invoke("attr", "data-old-value")
       .should("equal", "2");

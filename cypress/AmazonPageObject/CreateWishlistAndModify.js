@@ -76,6 +76,7 @@ class WishList {
     cy.get(selectors.button.deleteList)
       .contains("Delete list")
       .scrollIntoView()
+      .wait(2000)
       .click({ force: true });
     cy.get(selectors.button.confirmDeletion).should("be.visible");
     cy.get(selectors.button.confirmDeletion).wait(2000).click({ force: true });
