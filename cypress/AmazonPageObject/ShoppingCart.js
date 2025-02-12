@@ -77,7 +77,8 @@ class ShoppingCart {
       .get(selectors.link.xShare)
       .should("be.visible");
     cy.get(selectors.link.copyLinkUrl).should("be.visible");
-    cy.get(selectors.link.closeButton).click();
+    // cy.get(selectors.link.closeButton).click({ force: true });
+    cy.reload();
   }
   verifySaveForLaterButtonFunctionality(productName) {
     cy.wait(2000); //click opertion got performed but not reflecting on UI due to this 2sec wait added
