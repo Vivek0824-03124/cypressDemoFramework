@@ -77,7 +77,6 @@ class ShoppingCart {
       .get(selectors.link.xShare)
       .should("be.visible");
     cy.get(selectors.link.copyLinkUrl).should("be.visible");
-    // cy.get(selectors.link.closeButton).click({ force: true });
     cy.reload();
   }
   verifySaveForLaterButtonFunctionality(productName) {
